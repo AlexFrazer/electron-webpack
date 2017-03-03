@@ -12,5 +12,6 @@ render(
       <h1>Hello!</h1>
     </div>
   </AppContainer>,
-  target
+  target,
+  () => splash.classList.add('hidden'),
 );
