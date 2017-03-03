@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["env", { "targets": { "node": 6 }, "useBuiltIns": true }],
+    "react",
+    "stage-2"
+  ],
+  "plugins": ["react-hot-loader/babel"],
+  "env": {
+    "production": {
+      "presets": ["react-optimize"]
+    }
+  }
+}
