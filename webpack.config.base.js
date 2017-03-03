@@ -18,6 +18,15 @@ export default {
       exclude: /node_modules/,
     }]
   },
+  resolve: {
+    alias: {
+      app: srcPath,
+    },
+    modules: [
+      'node_modules',
+      srcPath,
+    ]
+  },
   plugins: [
     new webpack.NamedModulesPlugin(),
     new HTMLPlugin({

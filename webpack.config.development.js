@@ -30,13 +30,12 @@ export default merge(baseConfig, {
   devServer: {
     port,
     hot: true,
+    inline: true,
     contentBase: distPath,
     historyApiFallback: true,
     setup(app) {
-      console.log(app.get('port'));
       if (process.env.START_HOT) {
         const environment = { ...process.env, PORT: port };
-
         spawn('npm', ['run', 'start-hot'], { shell: true, env: environment, stdio: 'inherit' })
           .on('close', code => process.exit(code))
           .on('error', spawnError => console.error(spawnError));

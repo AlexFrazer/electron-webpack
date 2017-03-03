@@ -1,6 +1,8 @@
 import electron, { app, BrowserWindow } from 'electron';
 
-let mainWindow;
+let mainWindow = null;
+
+console.log(app);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -9,15 +11,20 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+  const { PORT, START_HOT } = process.env;
+  const url = START_HOT ? `http://localhost:${PORT}` : `file://${__dirname}/index.html`;
+  const { workAreaSize: { height, width } } = electron.screen.getPrimaryDisplay();
+
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 600,
+    width,
+    height,
     frame: false,
   });
 
-  const indexUrl = process.env.START_HOT
-    ? `http://localhost:${process.env.PORT || 3000}`
-    : `file://${__dirname}/index.html`;
+  mainWindow.loadURL(url);
 
-  mainWindow.loadURL(indexUrl);
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+    mainWindow.focus();
+  });
 });
